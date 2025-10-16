@@ -1,59 +1,81 @@
-# AGENTS.md: Guía para el Desarrollo del Dominio en Go
+# AGENTS.md: Guía para Definiciones de Dominio y Puertos
 
-## 1. Descripción General del Proyecto
+## Propósito de este Repositorio
 
-Este repositorio centraliza los modelos de dominio y los puertos para un ecosistema de aplicaciones desacopladas (API, ERP, LMS, etc.) basadas en una **arquitectura hexagonal**. El objetivo es tener una única fuente de verdad para la lógica de negocio principal y sus interfaces. Este proyecto está escrito en **Go**.
+Tu única función en este repositorio es **definir la arquitectura central** del ecosistema Origo. Este repositorio contiene exclusivamente las **definiciones** de los modelos de dominio (`structs`) y los puertos (`interfaces`), no su implementación.
 
-Los paquetes en el directorio `domains` (`authentication`, `lessors`, `tenants`, etc.) representan los dominios de negocio principales. El paquete `ports` contiene las interfaces para interactuar con estos dominios.
+**Regla fundamental: No escribas lógica de implementación aquí.** Esto incluye constructores, métodos con lógica de negocio, pruebas unitarias o cualquier otro código que no sea una `struct` o una `interface` de Go.
 
-## 2. Estructura y Arquitectura Hexagonal en Go
+## Tu Tarea como Agente
 
-Este proyecto sigue una estructura de paquetes donde cada paquete en el directorio `domains` es un dominio de negocio importable.
+Tu trabajo se centra en las siguientes tareas:
 
--   **Paquetes de Dominio (`domains/`)**: Aquí reside el **núcleo del dominio (el hexágono)**. Cada paquete (ej. `domains/authentication`) contiene la lógica de negocio pura, implementada con `structs` e `interfaces` de Go.
--   **Paquete `domains/shared/`**: Este paquete contiene tipos de datos transversales utilizados en múltiples dominios, como el tipo `shared.UUID` para identificadores únicos.
--   **Puertos (Interfaces)**: Los puertos se definen como `interfaces` de Go dentro del paquete `ports`. Estos puertos definen cómo el núcleo de la aplicación se comunica con el mundo exterior (e.g., bases de datos, APIs web, colas de mensajes).
--   **Adaptadores**: La implementación de los puertos debe residir en los proyectos consumidores (ej. la API), típicamente en un directorio como `internal/infrastructure/postgres`.
+### 1. Modificar o Añadir `structs` de Dominio
 
-## 3. Modelo de Datos Multi-Tenant
+-   **Ubicación**: `domains/<nombre-del-dominio>/`
+-   **Acción**: Crea o modifica archivos `.go` para definir las `structs` que representan las entidades del negocio.
+-   **Ejemplo**: Si necesitas añadir un campo `Status` a la `struct` `User`, modificarías `domains/authentication/user.go`.
 
-La arquitectura es **multi-lessor y multi-tenant**.
+```go
+// domains/authentication/user.go
 
--   **`LessorID`**: Identifica al proveedor del servicio.
--   **`TenantID`**: Identifica a la cuenta del cliente final.
+package authentication
 
-Casi todas las entidades principales (como `User`, `Log`, `Email`) contienen `LessorID` y `TenantID`. **Es fundamental que cualquier nueva entidad que almacene datos de cliente incluya estos identificadores**.
+import "github.com/rrdzgarza/origoDomains/domains/shared"
 
-## 4. Instrucciones para el Desarrollo
+// CORRECTO: Solo campos de datos.
+type User struct {
+    ID        shared.UUID
+    Email     string
+    Status    string // Nuevo campo añadido.
+}
+```
 
-### Interfaces de Repositorio
+### 2. Modificar o Añadir `interfaces` (Puertos)
 
-Las interfaces de repositorio se encuentran en el archivo `ports/repositories.go`. Estas interfaces definen los métodos para la persistencia de datos (CRUD) para cada dominio.
+-   **Ubicación**: `ports/`
+-   **Acción**: Crea o modifica `interfaces` que definen los contratos para los servicios o repositorios.
+-   **Ejemplo**: Si necesitas un método para encontrar usuarios por `Status`, lo añadirías a la `UserRepository`.
 
-### Manejo de Errores
+```go
+// ports/repositories.go
 
-El paquete `domains/shared/errors` define un conjunto de errores personalizados que deben ser utilizados por las implementaciones de los repositorios y servicios. Esto permite un manejo de errores más robusto y consistente en toda la aplicación.
+package ports
 
-### Cómo Añadir una Nueva Entidad a un Dominio
+// ... imports
 
-1.  **Identifica el Paquete**: Navega al paquete correspondiente en la raíz del proyecto.
-2.  **Crea el Archivo**: Crea un nuevo archivo `.go` (ej. `session.go`).
-3.  **Define el `struct`**: Implementa el `struct`. Si la entidad pertenece a un tenant, **añade los campos `LessorID shared.UUID` y `TenantID shared.UUID`**.
-4.  **Declara el Paquete**: Asegúrate de que el archivo comience con `package <nombre_del_paquete>`.
+type UserRepository interface {
+    CreateUser(ctx context.Context, user *authentication.User) error
+    GetUserByID(ctx context.Context, id shared.UUID) (*authentication.User, error)
+    // CORRECTO: Nuevo método añadido a la interfaz.
+    GetUsersByStatus(ctx context.Context, status string) ([]*authentication.User, error)
+}
+```
 
-### Cómo Modificar un Puerto
+### 3. Modificar o Añadir Errores Compartidos
 
-Cuando necesites añadir o cambiar una funcionalidad, probablemente necesitarás modificar la interfaz del puerto correspondiente en el directorio `ports`. Asegúrate de que tus cambios sean abstractos y no contengan detalles de implementación.
+-   **Ubicación**: `domains/shared/errors/`
+-   **Acción**: Define nuevos errores estándar que serán utilizados en todo el ecosistema.
 
-## 5. Sugerencias de Mejora y Próximos Pasos
+```go
+// domains/shared/errors/errors.go
 
--   **Añadir Pruebas Unitarias**: Crear archivos `_test.go` para validar la lógica de negocio.
--   **Implementar Constructores**: Añadir funciones constructoras (ej. `NewUser(...)`) para asegurar que las entidades se creen en un estado válido.
--   **Usar Linters**: Configurar `golangci-lint` para asegurar la calidad y consistencia del código.
--   **Propagación de Contexto**: Todos los métodos de servicio deben aceptar un `context.Context` como primer argumento. Este patrón debe mantenerse para todos los métodos nuevos para manejar plazos, cancelaciones y valores con alcance de solicitud.
--   **Puerto de Configuración**: A medida que el sistema crezca, es posible que necesites un puerto dedicado para la configuración de la aplicación.
--   **Puerto de Feature Flags**: Para habilitar o deshabilitar funcionalidades dinámicamente, un puerto de feature flags sería beneficioso.
--   **Idempotencia**: Para operaciones que no deben repetirse, considera añadir soporte para claves de idempotencia en las firmas de los métodos de los puertos relevantes.
--   **Versionado**: A medida que la API evolucione, considera una estrategia para versionar las interfaces, quizás creando nuevos paquetes (e.g., `ports/v2`).
+package errors
 
-Recuerda, tu objetivo es mantener el núcleo limpio, abstracto e independiente de cualquier tecnología o implementación específica. ¡Buena suerte!
+import "errors"
+
+var (
+    ErrNotFound = errors.New("not found")
+    // CORRECTO: Nuevo error estándar añadido.
+    ErrDuplicateRecord = errors.New("duplicate record")
+)
+```
+
+## Lo que NO Debes Hacer
+
+-   **NO** añadir funciones constructoras (ej. `NewUser()`).
+-   **NO** añadir métodos con lógica a las `structs`.
+-   **NO** crear archivos `_test.go`.
+-   **NO** implementar las interfaces definidas en `ports/`.
+
+Recuerda: este es el **plano arquitectónico**, no el edificio. Las implementaciones se realizan en otros repositorios.
