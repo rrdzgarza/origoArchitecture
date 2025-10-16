@@ -3,7 +3,7 @@ package lessors
 import (
 	"time"
 
-	"github.com/rrdzgarza/origoDomains/shared"
+	"github.com/rrdzgarza/origoDomains/domains/shared"
 )
 
 // Plan represents a SaaS plan offered by a Lessor.

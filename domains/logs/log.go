@@ -3,7 +3,7 @@ package logs
 import (
 	"time"
 
-	"github.com/rrdzgarza/origoDomains/shared"
+	"github.com/rrdzgarza/origoDomains/domains/shared"
 )
 
 // Log represents an event log.

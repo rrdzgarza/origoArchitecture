@@ -4,14 +4,14 @@
 
 Este repositorio centraliza los modelos de dominio y los puertos para un ecosistema de aplicaciones desacopladas (API, ERP, LMS, etc.) basadas en una **arquitectura hexagonal**. El objetivo es tener una única fuente de verdad para la lógica de negocio principal y sus interfaces. Este proyecto está escrito en **Go**.
 
-Los paquetes en la raíz de este repositorio (`authentication`, `lessors`, `tenants`, etc.) representan los dominios de negocio principales. El paquete `ports` contiene las interfaces para interactuar con estos dominios.
+Los paquetes en el directorio `domains` (`authentication`, `lessors`, `tenants`, etc.) representan los dominios de negocio principales. El paquete `ports` contiene las interfaces para interactuar con estos dominios.
 
 ## 2. Estructura y Arquitectura Hexagonal en Go
 
-Este proyecto sigue una estructura de paquetes plana donde cada paquete en la raíz es un dominio de negocio importable.
+Este proyecto sigue una estructura de paquetes donde cada paquete en el directorio `domains` es un dominio de negocio importable.
 
--   **Paquetes de Dominio (Raíz)**: Aquí reside el **núcleo del dominio (el hexágono)**. Cada paquete (ej. `authentication`) contiene la lógica de negocio pura, implementada con `structs` e `interfaces` de Go.
--   **Paquete `shared/`**: Este paquete contiene tipos de datos transversales utilizados en múltiples dominios, como el tipo `shared.UUID` para identificadores únicos.
+-   **Paquetes de Dominio (`domains/`)**: Aquí reside el **núcleo del dominio (el hexágono)**. Cada paquete (ej. `domains/authentication`) contiene la lógica de negocio pura, implementada con `structs` e `interfaces` de Go.
+-   **Paquete `domains/shared/`**: Este paquete contiene tipos de datos transversales utilizados en múltiples dominios, como el tipo `shared.UUID` para identificadores únicos.
 -   **Puertos (Interfaces)**: Los puertos se definen como `interfaces` de Go dentro del paquete `ports`. Estos puertos definen cómo el núcleo de la aplicación se comunica con el mundo exterior (e.g., bases de datos, APIs web, colas de mensajes).
 -   **Adaptadores**: La implementación de los puertos debe residir en los proyectos consumidores (ej. la API), típicamente en un directorio como `internal/infrastructure/postgres`.
 

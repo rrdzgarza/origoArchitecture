@@ -3,7 +3,7 @@ package ports
 import (
 	"context"
 
-	"github.com/rrdzgarza/origoDomains/smtp"
+	"github.com/rrdzgarza/origoDomains/domains/smtp"
 )
 
 // SMTPService defines the port for sending emails.

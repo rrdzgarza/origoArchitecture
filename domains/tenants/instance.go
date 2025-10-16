@@ -1,6 +1,6 @@
 package tenants
 
-import "github.com/rrdzgarza/origoDomains/shared"
+import "github.com/rrdzgarza/origoDomains/domains/shared"
 
 // Instance represents a deployment or environment for a Tenant.
 type Instance struct {

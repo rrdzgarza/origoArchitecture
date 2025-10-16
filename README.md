@@ -64,7 +64,7 @@ erDiagram
 
 ## Estructura del Proyecto
 
-El proyecto utiliza una **estructura de paquetes plana**. Cada paquete en la raíz del repositorio es un dominio de negocio autocontenido y públicamente importable.
+El proyecto utiliza una **estructura de paquetes anidada**. Cada paquete en el directorio `domains` es un dominio de negocio autocontenido y públicamente importable.
 
 ## Diseño Multi-Tenant
 
@@ -76,9 +76,9 @@ Para utilizar estos dominios en otro proyecto de Go, simplemente impórtalos uti
 
 ```go
 import (
-    "github.com/rrdzgarza/origoDomains/authentication"
-    "github.com/rrdzgarza/origoDomains/lessors"
-    "github.com/rrdzgarza/origoDomains/shared"
+    "github.com/rrdzgarza/origoDomains/domains/authentication"
+    "github.com/rrdzgarza/origoDomains/domains/lessors"
+    "github.com/rrdzgarza/origoDomains/domains/shared"
 )
 
 func main() {

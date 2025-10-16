@@ -3,8 +3,8 @@ package ports
 import (
 	"context"
 
-	"github.com/rrdzgarza/origoDomains/shared"
-	"github.com/rrdzgarza/origoDomains/tenants"
+	"github.com/rrdzgarza/origoDomains/domains/shared"
+	"github.com/rrdzgarza/origoDomains/domains/tenants"
 )
 
 // TenantService defines the port for managing tenants and their database instances.

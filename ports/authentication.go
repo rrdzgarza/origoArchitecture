@@ -3,8 +3,8 @@ package ports
 import (
 	"context"
 
-	"github.com/rrdzgarza/origoDomains/authentication"
-	"github.com/rrdzgarza/origoDomains/shared"
+	"github.com/rrdzgarza/origoDomains/domains/authentication"
+	"github.com/rrdzgarza/origoDomains/domains/shared"
 )
 
 // AuthRequest represents the data for an authentication request.

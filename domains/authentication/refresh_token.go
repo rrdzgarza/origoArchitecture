@@ -3,7 +3,7 @@ package authentication
 import (
 	"time"
 
-	"github.com/rrdzgarza/origoDomains/shared"
+	"github.com/rrdzgarza/origoDomains/domains/shared"
 )
 
 // RefreshToken represents a long-lived, revocable token.
