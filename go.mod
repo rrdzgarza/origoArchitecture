@@ -1,5 +1,4 @@
-module github.com/rrdzgarza/origoDomains
-
+module github.com/rrdzgarza/origoArchitecture
 go 1.24.3
 
 require github.com/google/uuid v1.6.0
