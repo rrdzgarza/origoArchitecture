@@ -3,7 +3,7 @@ package lessors
 import (
 	"time"
 
-	"github.com/rrdzgarza/origoDomains/domains/shared"
+	"github.com/rrdzgarza/origoArchitecture/domains/shared"
 )
 
 // App represents an application that a Lessor can offer.

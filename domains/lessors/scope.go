@@ -1,6 +1,6 @@
 package lessors
 
-import "github.com/rrdzgarza/origoDomains/domains/shared"
+import "github.com/rrdzgarza/origoArchitecture/domains/shared"
 
 // Scope defines usage parameters or limitations for an app within a plan.
 type Scope struct {

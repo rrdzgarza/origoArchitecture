@@ -21,7 +21,7 @@ Tu trabajo se centra en las siguientes tareas:
 
 package authentication
 
-import "github.com/rrdzgarza/origoDomains/domains/shared"
+import "github.com/rrdzgarza/origoArchitecture/domains/shared"
 
 // CORRECTO: Solo campos de datos.
 type User struct {

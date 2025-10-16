@@ -1,6 +1,6 @@
 package tenants
 
-import "github.com/rrdzgarza/origoDomains/domains/shared"
+import "github.com/rrdzgarza/origoArchitecture/domains/shared"
 
 // DatabaseConnection holds the connection parameters for a database.
 type DatabaseConnection struct {

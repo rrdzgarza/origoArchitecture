@@ -3,7 +3,7 @@ package authentication
 import (
 	"time"
 
-	"github.com/rrdzgarza/origoDomains/domains/shared"
+	"github.com/rrdzgarza/origoArchitecture/domains/shared"
 )
 
 // MagicLink represents a single-use login link.
