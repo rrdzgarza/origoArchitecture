@@ -26,6 +26,14 @@ Casi todas las entidades principales (como `User`, `Log`, `Email`) contienen `Le
 
 ## 4. Instrucciones para el Desarrollo
 
+### Interfaces de Repositorio
+
+Las interfaces de repositorio se encuentran en el archivo `ports/repositories.go`. Estas interfaces definen los métodos para la persistencia de datos (CRUD) para cada dominio.
+
+### Manejo de Errores
+
+El paquete `domains/shared/errors` define un conjunto de errores personalizados que deben ser utilizados por las implementaciones de los repositorios y servicios. Esto permite un manejo de errores más robusto y consistente en toda la aplicación.
+
 ### Cómo Añadir una Nueva Entidad a un Dominio
 
 1.  **Identifica el Paquete**: Navega al paquete correspondiente en la raíz del proyecto.
@@ -39,12 +47,10 @@ Cuando necesites añadir o cambiar una funcionalidad, probablemente necesitarás
 
 ## 5. Sugerencias de Mejora y Próximos Pasos
 
--   **Definir Interfaces (Puertos)**: Definir formalmente las `interfaces` para los repositorios (ej. `UserRepository`).
 -   **Añadir Pruebas Unitarias**: Crear archivos `_test.go` para validar la lógica de negocio.
 -   **Implementar Constructores**: Añadir funciones constructoras (ej. `NewUser(...)`) para asegurar que las entidades se creen en un estado válido.
 -   **Usar Linters**: Configurar `golangci-lint` para asegurar la calidad y consistencia del código.
 -   **Propagación de Contexto**: Todos los métodos de servicio deben aceptar un `context.Context` como primer argumento. Este patrón debe mantenerse para todos los métodos nuevos para manejar plazos, cancelaciones y valores con alcance de solicitud.
--   **Manejo de Errores**: Considera definir un tipo de error personalizado o un conjunto de códigos de error dentro de este repositorio. Esto permitiría a los adaptadores y a la aplicación principal manejar condiciones de error específicas de manera más robusta. Por ejemplo: `ErrNotFound`, `ErrPermissionDenied`, `ErrInvalidArgument`.
 -   **Puerto de Configuración**: A medida que el sistema crezca, es posible que necesites un puerto dedicado para la configuración de la aplicación.
 -   **Puerto de Feature Flags**: Para habilitar o deshabilitar funcionalidades dinámicamente, un puerto de feature flags sería beneficioso.
 -   **Idempotencia**: Para operaciones que no deben repetirse, considera añadir soporte para claves de idempotencia en las firmas de los métodos de los puertos relevantes.

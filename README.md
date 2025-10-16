@@ -94,5 +94,13 @@ func main() {
 }
 ```
 
+## Interfaces de Repositorio
+
+Este repositorio también define las interfaces de repositorio en el paquete `ports`. Estas interfaces proporcionan un contrato para la capa de persistencia de datos, permitiendo que el núcleo del dominio permanezca independiente de la implementación de la base de datos.
+
+## Manejo de Errores
+
+Se ha definido un conjunto de errores personalizados en `domains/shared/errors` para un manejo de errores consistente y predecible.
+
 ---
 *Para una guía de desarrollo más detallada, incluyendo convenciones de codificación y sugerencias de mejora, consulta el archivo `AGENTS.md`.*
