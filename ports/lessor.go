@@ -3,8 +3,8 @@ package ports
 import (
 	"context"
 
-	"github.com/rrdzgarza/origoDomains/domains/lessors"
-	"github.com/rrdzgarza/origoDomains/domains/shared"
+	"github.com/rrdzgarza/origoArchitecture/domains/lessors"
+	"github.com/rrdzgarza/origoArchitecture/domains/shared"
 )
 
 // LessorService defines the port for managing Lessors and their offerings.

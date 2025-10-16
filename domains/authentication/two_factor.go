@@ -1,6 +1,6 @@
 package authentication
 
-import "github.com/rrdzgarza/origoDomains/domains/shared"
+import "github.com/rrdzgarza/origoArchitecture/domains/shared"
 
 // TwoFactor represents the 2FA settings for a user.
 type TwoFactor struct {

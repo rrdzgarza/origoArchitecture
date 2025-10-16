@@ -3,12 +3,12 @@ package ports
 import (
 	"context"
 
-	"github.com/rrdzgarza/origoDomains/domains/authentication"
-	"github.com/rrdzgarza/origoDomains/domains/lessors"
-	"github.com/rrdzgarza/origoDomains/domains/logs"
-	"github.com/rrdzgarza/origoDomains/domains/shared"
-	"github.com/rrdzgarza/origoDomains/domains/smtp"
-	"github.com/rrdzgarza/origoDomains/domains/tenants"
+	"github.com/rrdzgarza/origoArchitecture/domains/authentication"
+	"github.com/rrdzgarza/origoArchitecture/domains/lessors"
+	"github.com/rrdzgarza/origoArchitecture/domains/logs"
+	"github.com/rrdzgarza/origoArchitecture/domains/shared"
+	"github.com/rrdzgarza/origoArchitecture/domains/smtp"
+	"github.com/rrdzgarza/origoArchitecture/domains/tenants"
 )
 
 // UserRepository defines the persistence port for the User domain.
