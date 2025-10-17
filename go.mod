@@ -1,4 +1,4 @@
-module github.com/rrdzgarza/origoArchitecture
+module github.com/rrdzgarza/origoBackendArchitecture
 
 go 1.24.3
 
