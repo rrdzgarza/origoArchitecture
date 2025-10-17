@@ -3,7 +3,7 @@ package ports
 import (
 	"context"
 
-	"github.com/rrdzgarza/origoArchitecture/domains/logs"
+	"github.com/rrdzgarza/origo-backend-architecture/domains/logs"
 )
 
 // LoggerService defines the port for logging application events.

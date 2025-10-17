@@ -3,7 +3,7 @@ package lessors
 import (
 	"time"
 
-	"github.com/rrdzgarza/origoArchitecture/domains/shared"
+	"github.com/rrdzgarza/origo-backend-architecture/domains/shared"
 )
 
 // Lessor represents the primary client offering the SaaS.

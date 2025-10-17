@@ -3,7 +3,7 @@ package smtp
 import (
 	"time"
 
-	"github.com/rrdzgarza/origoArchitecture/domains/shared"
+	"github.com/rrdzgarza/origo-backend-architecture/domains/shared"
 )
 
 // Email represents an email to be sent.

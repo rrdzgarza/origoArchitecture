@@ -3,7 +3,7 @@ package authentication
 import (
 	"time"
 
-	"github.com/rrdzgarza/origoArchitecture/domains/shared"
+	"github.com/rrdzgarza/origo-backend-architecture/domains/shared"
 )
 
 // User represents a user account.
