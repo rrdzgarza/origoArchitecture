@@ -3,7 +3,7 @@ package tenants
 import (
 	"time"
 
-	"github.com/rrdzgarza/origoArchitecture/domains/shared"
+	"github.com/rrdzgarza/origo-backend-architecture/domains/shared"
 )
 
 // Tenant represents an end-customer account derived from a Lessor.

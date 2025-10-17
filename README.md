@@ -98,9 +98,9 @@ Para utilizar estas definiciones en otro proyecto de Go, impórtalas utilizando 
 
 ```go
 import (
-    "github.com/rrdzgarza/origoArchitecture/domains/authentication"
-    "github.com/rrdzgarza/origoArchitecture/ports"
-    "github.com/rrdzgarza/origoArchitecture/domains/shared/errors"
+    "github.com/rrdzgarza/origo-backend-architecture/domains/authentication"
+    "github.com/rrdzgarza/origo-backend-architecture/ports"
+    "github.com/rrdzgarza/origo-backend-architecture/domains/shared/errors"
 )
 
 // Ejemplo de una implementación de un puerto en un proyecto consumidor.
